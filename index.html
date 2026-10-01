@@ -38,7 +38,7 @@ input,select{padding:10px;border:1px solid var(--ln);border-radius:8px;backgroun
 .goal button:hover:not(:disabled){background:color-mix(in srgb,var(--ac) 25%,transparent)}
 .grass{height:10px;background:var(--ac);border-radius:0 0 6px 6px}
 .dots{display:flex;gap:5px}.dots i{width:14px;height:14px;border-radius:50%;border:2px solid var(--mut)}
-.dots i.y{background:var(--ac);border-color:var(--ac)}.dots i.n{background:var(--tm);border-color:var(--tm)}
+.dots i.y{background:var(--ac);border-color:var(--ac)}.dots i.d{background:#e6b800;border-color:#e6b800}.dots i.n{background:var(--tm);border-color:var(--tm)}
 .mtr{position:relative;height:28px;border:3px solid var(--fg);border-radius:6px;background:var(--card);margin:14px 0}.mtr .gr{position:absolute;top:0;bottom:0;background:var(--ac);opacity:.55}.mtr b{position:absolute;top:-6px;bottom:-6px;width:6px;background:var(--tm);margin-left:-3px;border-radius:3px}
 .msg{min-height:30px;text-align:center;font-weight:600;margin:12px 0}
 </style></head><body><div id="app"></div>
@@ -69,7 +69,7 @@ function tl(t){const l=ln(t);return Math.round(l.g*.1+l.d*.3+l.m*.3+l.f*.3)}
 const fav=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%997;return h%6},zn=z=>['a la izquierda','al centro','a la derecha'][z%3]+(z<3?' arriba':' abajo');
 const DIV=['Xerez CD,CD Tudelano,CD Ebro,Bergantiños FC,Coria CF,CD Guijuelo,UD Almansa,CD Utrera,CD Tropezón,Peña Sport,UD Barbastro,Gimnástica Segoviana,CD Díter Zafra,Real Ávila,CD Laredo,CD Tarazona,UD Melilla,CD Illescas,CD Quintanar del Rey,Racing Rioja','Sevilla Atlético,Arenas Club,Linares Deportivo,Recreativo de Huelva,CD Numancia,CD Calahorra,Yeclano Deportivo,Atlético Sanluqueño,CD Mensajero,UD Logroñés,Ourense CF,Bilbao Athletic,Betis Deportivo,Villarreal B,Atlético Baleares,Mérida AD,CP Cacereño,CF Talavera,Real Jaén,Celta Fortuna','Real Murcia,Gimnàstic de Tarragona,Racing de Ferrol,Hércules CF,Real Madrid Castilla,Barça Atlètic,SD Ponferradina,Antequera CF,CD Castellón,FC Cartagena,Real Unión,CD Lugo,Sestao River,CE Europa,Atlético Madrileño,UD Ibiza,CF Intercity,UD Sanse,Real Avilés,Ceuta AD','Girona FC,RCD Mallorca,Real Oviedo,UD Las Palmas,Real Zaragoza,Sporting de Gijón,CD Tenerife,Real Valladolid,Albacete BP,Burgos CF,Granada CF,UD Almería,Cádiz CF,Real Sociedad B,CD Mirandés,SD Eibar,SD Huesca,CD Leganés,Cultural Leonesa,Córdoba CF',
 'Real Madrid,FC Barcelona,Atlético de Madrid,Athletic Club,Real Sociedad,Villarreal CF,Real Betis,Sevilla FC,Valencia CF,Celta de Vigo,CA Osasuna,Rayo Vallecano,Getafe CF,Deportivo Alavés,RCD Espanyol,Levante UD,Elche CF,Racing de Santander,Deportivo de La Coruña,Málaga CF'].map(x=>x.split(','));
-const REAL={'Real Madrid':'Courtois:POR:88:34,Carvajal:DEF:81:34,Konaté:DEF:84:27,Rüdiger:DEF:82:33,Cucurella:DEF:82:28,Tchouaméni:MED:84:26,Valverde:MED:86:27,Bernardo Silva:MED:86:32,Bellingham:MED:89:23,Mbappé:DEL:91:27,Vinícius Jr:DEL:89:26',
+const REAL={'Real Madrid':'Courtois:POR:88:34,Héctor:DEF:92:19:97,Carvajal:DEF:81:34,Konaté:DEF:84:27,Rüdiger:DEF:82:33,Cucurella:DEF:82:28,Tchouaméni:MED:84:26,Valverde:MED:86:27,Bernardo Silva:MED:86:32,Bellingham:MED:89:23,Mbappé:DEL:91:27,Vinícius Jr:DEL:89:26',
 'FC Barcelona':'Szczęsny:POR:83:36,Koundé:DEF:84:27,Cubarsí:DEF:82:19,Araujo:DEF:83:27,Balde:DEF:82:22,Pedri:MED:87:23,De Jong:MED:85:29,Olmo:MED:84:28,Gavi:MED:82:22,Lamine Yamal:DEL:91:19,Raphinha:DEL:87:29',
 'Atlético de Madrid':'Oblak:POR:87:33,Llorente:DEF:82:31,Giménez:DEF:81:31,Le Normand:DEF:81:29,Molina:DEF:80:27,Koke:MED:80:34,De Paul:MED:82:32,Gallagher:MED:81:26,Barrios:MED:80:24,Griezmann:DEL:86:35,Julián Álvarez:DEL:86:26',
 'Athletic Club':'Unai Simón:POR:83:28,De Marcos:DEF:76:36,Vivian:DEF:80:26,Laporte:DEF:80:32,Yuri:DEF:78:28,Galarreta:MED:78:32,Jauregizar:MED:77:22,Sancet:MED:79:25,Berenguer:MED:79:30,Nico Williams:DEL:85:23,Iñaki Williams:DEL:81:32',
@@ -77,7 +77,7 @@ const REAL={'Real Madrid':'Courtois:POR:88:34,Carvajal:DEF:81:34,Konaté:DEF:84:
 'Villarreal CF':'Luiz Júnior:POR:77:25,Mourino:DEF:76:23,Logan Costa:DEF:77:25,Rafa Marín:DEF:76:23,Pedraza:DEF:76:29,Comesaña:MED:77:28,Parejo:MED:77:37,Yeremy Pino:MED:79:23,Buchanan:MED:76:27,Gerard Moreno:DEL:80:34,Mikautadze:DEL:79:26',
 'Real Betis':'Álvaro Valles:POR:77:28,Bellerín:DEF:75:31,Natan:DEF:77:25,Diego Llorente:DEF:75:32,Junior Firpo:DEF:75:29,Altimira:MED:77:24,Fornals:MED:77:30,Isco:MED:80:34,Lo Celso:MED:79:30,Antony:DEL:78:26,Abde:DEL:79:25',
 'Sevilla FC':'Nyland:POR:75:28,Carmona:DEF:75:28,Marcão:DEF:75:29,Kike Salas:DEF:74:23,Adrià Pedrosa:DEF:75:27,Agoumé:MED:75:24,Sow:MED:75:28,Vargas:MED:74:28,Juanlu Sánchez:MED:73:22,Lukebakio:DEL:77:28,Isaac Romero:DEL:73:25',
-'Valencia CF':'Dimitrievski:POR:76:32,Correia:DEF:73:25,Tárrega:DEF:74:24,Copete:DEF:75:28,Gayà:DEF:78:31,Javi Guerra:MED:76:23,Pepelu:MED:75:27,Rioja:MED:73:32,Barrenechea:MED:74:25,Hugo Duro:DEL:75:26,Diego López:DEL:76:23',
+'Valencia CF':'Dimitrievski:POR:76:32,Correia:DEF:73:25,Tárrega:DEF:74:24,Copete:DEF:75:28,Gayà:DEF:78:31,Javi Guerra:MED:76:23,Pepelu:MED:75:27,Rioja:MED:73:32,Barrenechea:MED:74:25,Amara:DEL:91:18:97,Hugo Duro:DEL:75:26,Diego López:DEL:76:23',
 'Celta de Vigo':'Radu:POR:75:29,Mingueza:DEF:75:26,Starfelt:DEF:75:30,Marcos Alonso:DEF:75:35,Carreira:DEF:74:27,Fran Beltrán:MED:77:27,Sotelo:MED:74:21,Moriba:MED:76:23,Hugo Álvarez:MED:75:23,Iago Aspas:DEL:79:38,Borja Iglesias:DEL:76:33',
 'CA Osasuna':'Sergio Herrera:POR:75:32,Bretones:DEF:72:24,Catena:DEF:73:29,Boyomo:DEF:73:24,Areso:DEF:73:26,Torró:MED:75:31,Moi Gómez:MED:75:31,Aimar Oroz:MED:77:24,Iker Muñoz:MED:73:22,Budimir:DEL:76:34,Víctor Muñoz:DEL:73:22',
 'Rayo Vallecano':'Batalla:POR:74:29,Ratiu:DEF:73:27,Lejeune:DEF:73:34,Chavarría:DEF:72:27,Espino:DEF:72:32,Unai López:MED:74:30,Pathé Ciss:MED:74:31,Isi Palazón:MED:76:30,Óscar Valentín:MED:74:32,De Frutos:DEL:75:28,Álvaro García:DEL:74:33',
@@ -91,15 +91,18 @@ const FX=(()=>{let a=[...Array(20).keys()],f=[];for(let r=0;r<19;r++){f.push([..
 const isHome=()=>{const e=cur();return e.k=='L'?e.r%2==0:e.h};
 const PL=t=>t.me?S.squad:t.pl,mine=()=>S.div[S.cat].find(t=>t.me),rivals=()=>S.div[S.cat].filter(t=>!t.me);
 const CR=['1ª ronda','Octavos','Cuartos','Semifinal','Final'],ER=['Octavos','Cuartos','Semifinal','Final'];
-const EUT={'Champions League':['Bayern,Inter,PSG,Arsenal,Manchester City,Benfica,Ajax,Dortmund,Juventus,Milan,Liverpool,Chelsea,Atalanta,Monaco,PSV',83,[40000,20000],120000],'Europa League':['Roma,Lyon,Porto,Tottenham,Napoli,Feyenoord,Leverkusen,Lazio,Sporting CP,Marseille,Newcastle,Eintracht,Lille,Galatasaray,Fenerbahçe',77,[25000,12000],60000],'Conference League':['Fiorentina,Olympiacos,Aston Villa,Club Brugge,Celtic,Braga,Rangers,Legia,PAOK,Basilea,AZ Alkmaar,Slavia Praga,Anderlecht,Copenhague,Young Boys',71,[15000,8000],35000]};
+const EUT={'Champions League':['Bayern,Inter,PSG,Arsenal,Manchester City,Benfica,Ajax,Dortmund,Juventus,Milan,Liverpool,Chelsea,Atalanta,Monaco,PSV,Shakhtar',83,[40000,20000],120000],'Europa League':['Roma,Lyon,Porto,Tottenham,Napoli,Feyenoord,Leverkusen,Lazio,Sporting CP,Marseille,Newcastle,Eintracht,Lille,Galatasaray,Fenerbahçe,Genk',77,[25000,12000],60000],'Conference League':['Fiorentina,Olympiacos,Aston Villa,Club Brugge,Celtic,Braga,Rangers,Legia,PAOK,Basilea,AZ Alkmaar,Slavia Praga,Anderlecht,Copenhague,Young Boys,Sparta Praga',71,[15000,8000],35000]};
 const sh=a=>[...a].sort(()=>Math.random()-.5),pairs=t=>t.reduce((a,x,i)=>i%2?a:[...a,{a:x,b:t[i+1]}],[]);
 function newCal(){const cup=[0,1,2,3,4].map(i=>({k:'C',r:i,h:i%2==0})),pool=sh(S.div.flat().filter(t=>!t.me)).slice(0,31).map(t=>t.n);S.br={C:{r:[pairs(sh([S.name,...pool]))]}};
- let eu=[];if(S.eu){const E=EUT[S.eu.c],lv={};E[0].split(',').forEach(n=>lv[n]=E[1]+R(-3,8));S.br.E={r:[pairs(sh([S.name,...Object.keys(lv)]))],lv,tm:{}};eu=[0,1,2,3].map(i=>({k:'E',r:i,h:i%2==0}))}
- const c=[];for(let r=0;r<19;r++){c.push({k:'L',r});if([3,7,11,14,17].includes(r))c.push(cup.shift());if([5,9,13,16].includes(r)&&eu.length)c.push(eu.shift())}
+ const cn=S.eu?S.eu.c:'Champions League',E=EUT[cn],lv={},nm=E[0].split(',');nm.forEach(n=>lv[n]=E[1]+R(-3,8));
+ S.br.E={c:cn,r:[pairs(sh(S.eu?[S.name,...nm.slice(0,15)]:nm))],lv,tm:{}};
+ const eu=[0,1,2,3].map(i=>({k:'E',r:i,h:i%2==0,skip:!S.eu})),c=[];
+ for(let r=0;r<19;r++){c.push({k:'L',r});if([3,7,11,14,17].includes(r))c.push(cup.shift());if([5,9,13,16].includes(r))c.push(eu.shift())}
  S.cal=c;S.ci=0;newObj()}
+function adv(){while(S.ci<S.cal.length&&S.cal[S.ci].skip){const e=S.cal[S.ci],b=S.br&&S.br[e.k];if(b&&b.r[e.r]){simTies(e.k,e.r);if(e.r<(e.k=='C'?4:3))b.r.push(pairs(b.r[e.r].map(x=>x.w)))}S.ci++}}
 function simTies(k,r){const b=S.br[k],lv=n=>{if(k=='E')return b.lv[n];const t=S.div.flat().find(x=>x.n==n);return t&&t.pl?tl(t):55};b.r[r].forEach(x=>{if(x.w)return;const aw=Math.random()<cl(.5+(lv(x.a)-lv(x.b))/60,.15,.85),g=R(1,3),l=R(0,g-1),dr=Math.random()<.2;x.w=aw?x.a:x.b;x.p=dr;x.s=dr?[g,g]:aw?[g,l]:[l,g]})}
 function brStep(k,r,w,gm,go){const b=S.br[k],last=k=='C'?4:3,m=b.r[r].find(x=>x.a==S.name||x.b==S.name),a=m.a==S.name;m.w=w?S.name:a?m.b:m.a;m.s=a?[gm,go]:[go,gm];m.p=gm==go;simTies(k,r);
- const nx=q=>{if(q<last)b.r.push(pairs(b.r[q].map(x=>x.w)))};nx(r);if(!w)for(let q=r+1;q<=last;q++){simTies(k,q);nx(q)}}
+ const nx=q=>{if(q<last)b.r.push(pairs(b.r[q].map(x=>x.w)))};nx(r);}
 const cur=()=>S.cal[S.ci];
 function opp(){const e=cur();if(e.k=='L'){const d=S.div[S.cat],mi=d.findIndex(t=>t.me),p=FX[e.r].find(x=>x.includes(mi));return d[p[0]==mi?p[1]:p[0]]}if(e.o)return e.o;const t=S.br[e.k].r[e.r].find(x=>x.a==S.name||x.b==S.name),n=t.a==S.name?t.b:t.a;if(e.k=='C')return S.div.flat().find(x=>x.n==n);const b=S.br.E;return b.tm[n]=b.tm[n]||gT(n,b.lv[n])}
 function table(){return S.div[S.cat].map(t=>({n:t.n,p:t.pts,me:!!t.me})).sort((a,b)=>b.p-a.p)}
@@ -153,13 +156,13 @@ function draw(){
  <div class="tabs" style="margin:12px 0">${tabs}</div><div id="v"></div>`;
  ({home,squad,market,libres,youth,copas,stats,club})[T]()}
 function home(){const e=cur(),o=opp(),L=e.k=='L',eu=S.eu,
- dots=[...Array(19)].map((_,i)=>`<i class="${S.res[i]==1?'y':S.res[i]===0?'n':''}"></i>`).join(''),
+ dots=[...Array(19)].map((_,i)=>`<i class="${S.res[i]==1?'y':S.res[i]===0?'n':S.res[i]===.5?'d':''}"></i>`).join(''),
  nm=L?'Liga · Jornada '+(e.r+1)+'/19':e.k=='C'?'Copa del Rey · '+CR[e.r]:eu.c+' · '+ER[e.r],
- st=k=>S.cal.some((q,i)=>i>=S.ci&&q.k==k)?'en juego':'fuera';
+ st=k=>S.cal.some((q,i)=>i>=S.ci&&q.k==k&&!q.skip)?'en juego':'fuera';
  $('#v').innerHTML=`<div class="card"><h3>${nm}</h3><div class="dots" style="flex-wrap:wrap;margin:8px 0">${dots}</div>
  <p>Rival: ${crest(o.n,0,22)} <b>${o.n}</b> <span class="mut">(nivel ${tl(o)} · tu nivel ${tl({me:1})}) · ${isHome()?'🏟 en casa, '+S.stad:'✈ fuera de casa'}</span></p>
  <p class="mut">Copa: ${st('C')} · Europa: ${eu?eu.c+' ('+st('E')+')':'sin clasificar'}. Los 3 primeros de liga ascienden y los 3 últimos descienden. En Primera, los 6 primeros juegan en Europa, y el campeón de Copa va a la Europa League. Copa y Europa son eliminatorias: si hay empate, penaltis.</p>
- ${S.ob?`<p>🎯 <b>Objetivos:</b> acabar ${S.ob.l}º o mejor · ganar ${S.ob.cw} eliminatorias de Copa (${S.cupW||0}/${S.ob.cw})</p>`:''}<div class="row"><button style="flex:1" onclick="kickoff(0)">Jugar partido</button><button class="g" style="flex:1" onclick="kickoff(1)">Simular rápido</button></div>${S.log?`<p class="mut">${S.log}</p>`:''}</div>
+ ${S.ob?`<p>🎯 <b>Objetivos:</b> acabar ${S.ob.l}º o mejor · ganar ${S.ob.cw} eliminatorias de Copa (${S.cupW||0}/${S.ob.cw})</p>`:''}<div class="row"><button style="flex:1" onclick="kickoff(0)">Jugar partido</button><button class="g" style="flex:1" onclick="kickoff(1)">Simular rápido</button></div>${S.log?`<p class="mut" style="${S.log.startsWith('Empate')?'color:#d9a400;font-weight:600':''}">${S.log}</p>`:''}</div>
  ${offHtml()}<div class="card"><h3>Táctica</h3><div class="row">${['Defensiva','Equilibrada','Ofensiva'].map((n,k)=>`<button class="${tc()==k?'':'g'}" style="flex:1" onclick="S.tac=${k};draw()">${n}</button>`).join('')}</div><p class="mut">Defensiva: menos ocasiones para todos. Ofensiva: más ocasiones para ti, pero el rival marca con más facilidad. Puedes cambiarla en el descanso.</p></div>
  <div class="card"><h3>Clasificación</h3>${table().map((r,i)=>`<div class="row" style="${r.me?'font-weight:700':'color:var(--mut)'}"><span>${i+1}. ${crest(r.n,r.me?S.col:0,18)} ${r.n}</span><span>${Math.floor(r.p)} pts</span></div>`).join('')}</div>
  <div class="card"><h3>Palmarés</h3>${S.titles.length?S.titles.map(t=>`<div>🏆 ${t}</div>`).join(''):'<div class="mut">Aún sin títulos.</div>'}</div>`}
@@ -171,13 +174,14 @@ function sell(id){const p=S.squad.find(x=>x.id==id);
  if(S.squad.length<=11)return toast('Necesitas al menos 11 jugadores.');
  if(p.pos=='POR'&&S.squad.filter(x=>x.pos=='POR').length<=1)return toast('Necesitas un portero.');
  S.money+=Math.round(price(p)*.5);S.squad=S.squad.filter(x=>x!=p);save();draw()}
-const rk=(t,p)=>[...t.pl].sort((a,b)=>b.ovr-a.ovr).indexOf(p),faP=p=>p.free?0:Math.round(price(p)*.2/100)*100;
-function market(){const r=rivals(),t=r[S.mt]||r[0];S.rej=S.rej||{};
- $('#v').innerHTML=`<div class="card"><div class="mut">Plantilla ${S.squad.length}/20. Los clubes pueden rechazar la venta de sus jugadores clave (★); una oferta alta mejora la probabilidad. Si rechazan, no vuelven a negociar esa temporada.</div>
- <select onchange="S.mt=+this.value;draw()" style="width:100%;margin:8px 0">${r.map((x,i)=>`<option value="${i}" ${x==t?'selected':''}>${x.n} (nivel ${tl(x)})</option>`).join('')}</select>
- ${t.pl.map(p=>{const st=rk(t,p)<3,hi=Math.round(price(p)*1.4/100)*100,full=S.squad.length>=20;
-  return pl(p,S.rej[p.id]?'<span class="mut">Rechazado</span>':`<div style="text-align:right">${st?'<div class="mut">★ Jugador clave</div>':''}<button ${S.money<price(p)||full?'disabled':''} onclick="buy('${p.id}',1)">${K(price(p))}</button>${st?` <button class="g" ${S.money<hi||full?'disabled':''} onclick="buy('${p.id}',1.4)">${K(hi)}</button>`:''}</div>`)}).join('')}</div>`}
-function buy(id,m){const r=rivals(),t=r[S.mt]||r[0],p=t.pl.find(x=>x.id==id),k=rk(t,p),c=Math.round(price(p)*m/100)*100,pr=k<3?[[.15,.5],[.35,.75],[.35,.75]][k][m>1?1:0]:1;
+const rk=(t,p)=>[...t.pl].sort((a,b)=>b.ovr-a.ovr).indexOf(p),faP=p=>p.free?0:Math.round(price(p)*.2/100)*100,mP=(p,d)=>Math.round(price(p)*(1+.12*d)/100)*100;
+function mv2(){const d=S.mdv==null?S.cat:S.mdv;return[d,S.div[d].filter(t=>!t.me)]}
+function market(){const[d,r]=mv2(),t=r[S.mt]||r[0];S.rej=S.rej||{};
+ $('#v').innerHTML=`<div class="card"><div class="mut">Plantilla ${S.squad.length}/20. Puedes ofertar por jugadores de cualquier categoría. Cuanto más alta la división, más caros, y pueden rechazar venirse a un club de categoría inferior. Los ★ son jugadores clave. Si rechazan, no vuelven a negociar esta temporada.</div>
+ <select onchange="S.mdv=+this.value;S.mt=0;draw()" style="width:100%;margin:8px 0">${CATS.map((c,i)=>`<option value="${i}" ${i==d?'selected':''}>${c.n}</option>`).join('')}</select>
+ <select onchange="S.mt=+this.value;draw()" style="width:100%;margin-bottom:8px">${r.map((x,i)=>`<option value="${i}" ${x==t?'selected':''}>${x.n} (nivel ${tl(x)})</option>`).join('')}</select>
+ ${t.pl.map(p=>{const st=rk(t,p)<3,c1=mP(p,d),hi=Math.round(c1*1.4/100)*100,full=S.squad.length>=20;return pl(p,S.rej[p.id]?'<span class="mut">Rechazado</span>':`<div style="text-align:right">${st?'<div class="mut">★ Jugador clave</div>':''}<button ${S.money<c1||full?'disabled':''} onclick="buy('${p.id}',1)">${K(c1)}</button>${st?` <button class="g" ${S.money<hi||full?'disabled':''} onclick="buy('${p.id}',1.4)">${K(hi)}</button>`:''}</div>`)}).join('')}</div>`}
+function buy(id,m){const[d,r]=mv2(),t=r[S.mt]||r[0],p=t.pl.find(x=>x.id==id),k=rk(t,p),c=Math.round(mP(p,d)*m/100)*100,gap=Math.max(0,d-S.cat),pr=(k<3?[[.15,.5],[.35,.75],[.35,.75]][k][m>1?1:0]:1)*cl(1-.2*gap,.2,1);
  if(Math.random()>=pr){S.rej[id]=1;save();toast(t.n+' rechaza la oferta por '+p.name+'.');return draw()}
  S.money-=c;S.squad.push(p);t.pl=t.pl.map(x=>x==p?mk(p.pos,Math.max(30,p.ovr-8),R(19,30)):x);save();draw()}
 function newFA(){const l=CATS[S.cat].l;S.fa=[...Array(8)].map(()=>{const o=R(0,1)?R(31,36):R(19,30),p=mk(P(['POR','DEF','DEF','MED','MED','DEL']),Math.max(30,l+R(-14,3)),o);p.free=o>=31;return p})}
@@ -207,7 +211,7 @@ function offOk(i){const o=S.off[i],p=S.squad.find(x=>x.id==o.id);if(!p)return;if
  S.money+=o.amt;S.squad=S.squad.filter(x=>x!=p);S.off.splice(i,1);S.off=S.off.filter(x=>S.squad.some(y=>y.id==x.id));toast(p.name+' vendido por '+K(o.amt));save();draw()}
 function copas(){const f=(k,h,rn)=>{const b=S.br&&S.br[k];if(!b)return'';const last=k=='C'?4:3,fin=b.r[last]&&b.r[last][0].w;
  return`<div class="card"><h3>${h}</h3>${b.r.map((rd,i)=>`<div class="mut" style="margin-top:10px">${rn[i]}</div>${rd.map(x=>`<div class="row" style="${x.a==S.name||x.b==S.name?'font-weight:700':'color:var(--mut)'}"><span>${x.a} - ${x.b}</span><span>${x.w?x.s[0]+'-'+x.s[1]+(x.p?' (pen.)':'')+' · '+x.w:'pendiente'}</span></div>`).join('')}`).join('')}${fin?`<p style="margin-top:10px"><b>🏆 Campeón: ${fin}</b></p>`:''}</div>`};
- $('#v').innerHTML=f('C','Copa del Rey',CR)+(S.eu?f('E',S.eu.c,ER):'<div class="card mut">No juegas competición europea esta temporada.</div>')}
+ $('#v').innerHTML=f('C','Copa del Rey',CR)+f('E',S.br&&S.br.E?S.br.E.c+(S.eu?'':' (no participas)'):'',ER)}
 function club(){$('#v').innerHTML=`<div class="card"><h3>${S.stad}</h3><p class="mut">Entrenador: ${S.coach} · Ingresos por temporada: ${K(inc())}</p></div>`+Object.keys(FAC).map(k=>{const f=FAC[k],l=S[k]||1;return`<div class="card"><div class="row"><h3>${f[0]}</h3><b>Nivel ${l}/5</b></div><p class="mut">${f[1]}</p><button style="width:100%" ${l>=5||S.money<l*f[2]?'disabled':''} onclick="up('${k}')">${l>=5?'Al máximo':'Mejorar ('+K(l*f[2])+')'}</button></div>`}).join('')}
 function up(k){const l=S[k]||1;S.money-=l*FAC[k][2];S[k]=l+1;save();draw()}
 /* ---- partido ---- */
@@ -291,11 +295,11 @@ function fin(gm,go){const e=cur(),w=gm>go,d=gm==go,L=e.k=='L',EP=EUT[S.eu&&S.eu.
  S.money+=g;if(Math.random()<.05)mkOffer();const inj=[],xi=XI(S.squad).map(p=>p.id);S.squad.forEach(p=>{if(p.sus)p.sus--;if(p.inj)p.inj--;else if(xi.includes(p.id)&&Math.random()<.03-((S.md||1)-1)*.005){p.inj=Math.max(1,R(1,6)-((S.md||1)-1));inj.push(p.name+' ('+p.inj+')')}});S.squad.forEach(p=>{if(p.age<=25&&p.ovr<p.pot&&Math.random()<.08+((S.tr||1)-1)*.03)p.ovr++});
  if(L){if(!go){const k=M.g&&S.squad.find(x=>x.id==M.g.id);if(k)k.cs=(k.cs||0)+1}if(!gm){const k=M.T.pl.find(x=>x.pos=='POR');if(k)k.cs=(k.cs||0)+1}S.res.push(w?1:d?.5:0);mine().pts+=w?3:d?1:0;M.T.pts+=w?0:d?1:3;simRound(e.r)}
  else{if(w&&e.k=='C')S.cupW=(S.cupW||0)+1;if(S.br&&S.br[e.k])brStep(e.k,e.r,w,M.gm,M.go);if(M.gm==M.go)x=' (pen.)';
-  if(!w){S.cal=S.cal.filter((q,i)=>i<=S.ci||q.k!=e.k);x+=' · Eliminado de '+(e.k=='C'?'la Copa':S.eu.c)}
+  if(!w){S.cal.forEach((q,i)=>{if(i>S.ci&&q.k==e.k)q.skip=true});x+=' · Eliminado de '+(e.k=='C'?'la Copa':S.eu.c)}
   else if(e.k=='C'&&e.r==4){S.titles.push('Copa del Rey '+yr);S.cw=true;S.money+=40000;x+=' · 🏆 ¡Campeón de Copa! +40k €'}
   else if(e.k=='E'&&e.r==3){S.titles.push(S.eu.c+' '+yr);S.money+=EP[3];x+=' · 🏆 ¡'+S.eu.c+'! +'+K(EP[3])}}
  S.log=(w?'Victoria ':d?'Empate ':'Derrota ')+M.gm+'-'+M.go+' ante '+M.o.n+(g?' · +'+K(g):'')+x+(inj.length?' · 🤕 '+inj.join(', '):'');
- S.ci++;if(S.ci>=S.cal.length)return endSeason();save();M=null;T='home';draw()}
+ S.ci++;adv();if(S.ci>=S.cal.length)return endSeason();save();M=null;T='home';draw()}
 function endSeason(){
  const old=S.cat,c=CATS[old].n,yr=(2026+S.season)+'/'+(27+S.season),out=[],rs=()=>S.div.forEach(d=>d.forEach(t=>t.pts=t.me?.25:Math.random()*.5));
  S.money+=inc();out.push('Ingresos de taquilla y patrocinio: '+K(inc()));
