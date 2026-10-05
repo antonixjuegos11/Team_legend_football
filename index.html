@@ -307,7 +307,7 @@ let CFG={dif:1,spd:1,lang:'es',theme:'auto',snd:1,mus:0},BK='setup',DA=0;try{Obj
 function applyCfg(){const r=document.documentElement;if(CFG.theme=='auto')r.removeAttribute('data-theme');else r.setAttribute('data-theme',CFG.theme)}
 function cfs(k,v){CFG[k]=v;try{localStorage.setItem('pcar_cfg',JSON.stringify(CFG))}catch(e){}applyCfg();if(k=='mus')music();ajustes()}
 function ajustes(from){BK=from||BK;const o=(k,a)=>`<div class="row">${a.map(x=>`<button class="${CFG[k]===x[0]?'':'g'}" style="flex:1;min-width:84px" onclick="cfs('${k}',${typeof x[0]=='string'?"'"+x[0]+"'":x[0]})">${x[1]}</button>`).join('')}</div>`;
- $('#app').innerHTML=`<h1>Ajustes</h1><div class="card"><h3>Idioma</h3>${o('lang',[['es','Español'],['en','English']])}</div><div class="card"><h3>Tema</h3>${o('theme',[['auto','Automático'],['light','Claro'],['dark','Oscuro']])}</div>
+ $('#app').innerHTML=`<h1>Ajustes</h1><br><h6>Hecho por Antonix con la ayuda inestimable de Amaris.</h6><div class="card"><h3>Idioma</h3>${o('lang',[['es','Español'],['en','English']])}</div><div class="card"><h3>Tema</h3>${o('theme',[['auto','Automático'],['light','Claro'],['dark','Oscuro']])}</div>
  <div class="card"><h3>Dificultad</h3>${o('dif',[[0,'Fácil'],[1,'Normal'],[2,'Difícil']])}<p class="mut">Cambia la velocidad de los medidores y lo fácil que es marcar o parar.</p></div>
  <div class="card"><h3>Velocidad de los partidos</h3>${o('spd',[[0,'Lenta'],[1,'Normal'],[2,'Rápida']])}</div>
  <div class="card"><h3>Sonido</h3>${o('snd',[[1,'Efectos: sí'],[0,'Efectos: no']])}<div style="height:8px"></div>${o('mus',[[1,'Música: sí'],[0,'Música: no']])}</div>
