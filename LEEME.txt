@@ -8,3 +8,5 @@ Notas:
 - Todos los nombres de clubes y jugadores son ficticios. En Ajustes hay un editor de nombres.
 - El script de anuncios (AdSense) va en index.html, dentro de <head>. Nunca en sw.js.
 - Para que AdSense apruebe la web hace falta dominio propio, politica de privacidad y archivo ads.txt.
+
+TIENDA / TLTokens: en index.html busca 'const SHOP={live:false...'. Con live:false los paquetes de TLTokens son GRATIS (modo demo para probar). Antes de publicar pon live:true y conecta un servicio de pago (ver SHOP.links y SHOP.codes).
