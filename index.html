@@ -314,7 +314,7 @@ function ajustes(from){BK=from||BK;const o=(k,a)=>`<div class="row">${a.map(x=>`
  <div class="card"><h3>Sonido</h3>${o('snd',[[1,'Efectos: sí'],[0,'Efectos: no']])}<div style="height:8px"></div>${o('mus',[[1,'Música: sí'],[0,'Música: no']])}</div>
  <div class="card"><h3>Partidas</h3><div class="row"><button style="flex:1" onclick="exp()">Exportar</button><label class="mut" style="flex:1"><input type="file" accept=".json" onchange="imp(this.files[0])"></label></div><div id="ex"></div><p class="mut">Pega aquí un texto exportado para importarlo:</p><textarea id="imt" style="width:100%;height:60px"></textarea><button class="g" style="width:100%;margin-top:6px" onclick="impT()">Importar texto</button></div>
  <div class="card"><h3>Nombres de clubes</h3><p class="mut">Todos los nombres del juego son ficticios. Puedes poner los que quieras para tus próximas carreras.</p><button class="g" style="width:100%" onclick="nombres()">Editor de nombres</button></div>
- <div class="card"><h3>Cuenta de TLTokens</h3><p class="mut">Tus TLTokens están ligados a este ID. Guárdalo en un lugar seguro: quien lo tenga puede usarlos. Sirve para recuperarlos en otro dispositivo.</p><input readonly value="${PF.pid}" style="font-size:12px"><button class="g" style="width:100%;margin:6px 0" onclick="copyId()">Copiar ID</button><input id="rid" placeholder="Pega aquí un ID para restaurar" style="font-size:12px"><button class="g" style="width:100%;margin-top:6px" onclick="restoreId()">Restaurar ID</button><p class="mut"><a href="legal.html" target="_blank">Términos, privacidad y reembolsos</a></p></div><div class="card"><h3>Ayuda</h3><button class="g" style="width:100%" onclick="tut()">Ver tutorial</button></div>
+ <div class="card"><h3>Ayuda</h3><button class="g" style="width:100%" onclick="tut()">Ver tutorial</button><p class="mut"><a href="legal.html" target="_blank">Privacidad y aviso legal</a></p></div>
  <div class="card"><h3>Borrar todos los datos</h3><button class="g" style="width:100%" onclick="delAll()">${DA?'¿Seguro? Pulsa otra vez':'Borrar partidas y ajustes'}</button></div>
  <button style="width:100%" onclick="BK=='game'&&S&&S.cal?draw():setup()">Volver</button>`}
 function exp(){const t=JSON.stringify({v:2,careers:all(),cfg:CFG});try{const b=new Blob([t],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='penaltis-partidas.json';document.body.appendChild(a);a.click();a.remove()}catch(e){}
@@ -327,8 +327,8 @@ function nombres(){const lc=BN||LC;$('#app').innerHTML=`<h1>Editor de nombres</h
 let BN=null;
 function saveN(lc){const a=$('#nm').value.split('\n').map(x=>x.trim()).filter(Boolean);if(a.length!=100||new Set(a).size!=100)return toast('Necesito 100 nombres distintos (uno por línea). Ahora hay '+a.length+'.');NAMES[lc]=a;try{localStorage.setItem('pcar_names',JSON.stringify(NAMES))}catch(e){}LG[lc].div=genNames(lc);if(lc==LC)DIV=LG[lc].div;toast('Nombres guardados para las carreras nuevas')}
 function resN(lc){delete NAMES[lc];try{localStorage.setItem('pcar_names',JSON.stringify(NAMES))}catch(e){}LG[lc].div=genNames(lc);if(lc==LC)DIV=LG[lc].div;nombres()}
-const TUT={es:[['¡Bienvenido!','Crea tu club o dirige uno ya existente. Tu objetivo: ascender, ganar títulos y llegar a lo más alto en cualquier liga.'],['Los partidos','Cada partido son 90 minutos. Cuando hay una ocasión, eliges dónde apuntar y pulsas "¡Ahora!" en la zona verde: primero potencia y luego precisión. Si te atacan, pulsa en la zona verde para parar.'],['Táctica y cambios','Elige táctica defensiva, equilibrada u ofensiva. En el descanso y en el minuto 70 puedes cambiarla y hacer hasta 3 cambios.'],['Tu plantilla','En "Plantilla" ves tu once como en un videojuego de fútbol. Toca un jugador y luego otro para intercambiarlos. Los lesionados (🤕) y sancionados (🟥) no juegan.'],['Fichajes','Ficha jugadores de cualquier club y liga, o busca agentes libres. Los jugadores clave pueden rechazarte, y los de ligas superiores cuestan más. La cantera descubre jóvenes promesas.'],['Club y dinero','Mejora estadio, ciudad deportiva, academia, cuerpo médico y ojeadores. Cumple los objetivos de la directiva o te pueden despedir… y te llegarán ofertas de otros clubes.'],['Formaciones y tienda','En Plantilla puedes cambiar la formación (4-4-2, 4-3-3, 3-5-2...). En la Tienda hay TLTokens, que se cambian por dinero, botiquines para curar lesionados y retiratarjetas para levantar sanciones.'],['Historia y logros','En "Historia" ves tus temporadas, récords y más de 80 logros. En Ajustes puedes exportar tus partidas, cambiar idioma, sonido y dificultad. ¡A jugar!']],
-en:[['Welcome!','Create your club or manage an existing one. Your goal: get promoted, win trophies and reach the top in any league.'],['Matches','Each match lasts 90 minutes. When there is a chance, pick where to aim and press "Now!" in the green zone: first power, then accuracy. When defending, press in the green zone to save.'],['Tactics and subs','Choose a defensive, balanced or attacking tactic. At half-time and on minute 70 you can change it and make up to 3 substitutions.'],['Your squad','In "Squad" you see your starting eleven like a football video game. Tap a player and then another to swap them. Injured (🤕) and suspended (🟥) players cannot play.'],['Transfers','Sign players from any club or league, or look for free agents. Key players may refuse you, and players from higher leagues cost more. The academy finds young talents.'],['Club and money','Upgrade stadium, training ground, academy, medical team and scouts. Meet the board objectives or you may be sacked... and other clubs will send offers.'],['Formations and shop','In Squad you can change the formation (4-4-2, 4-3-3, 3-5-2...). In the Shop there are TLTokens, which you can exchange for money, first-aid kits to heal injured players and card removers to lift suspensions.'],['History and achievements','In "History" you see your seasons, records and over 80 achievements. In Settings you can export your saves and change language, sound and difficulty. Let us play!']]};
+const TUT={es:[['¡Bienvenido!','Crea tu club o dirige uno ya existente. Tu objetivo: ascender, ganar títulos y llegar a lo más alto en cualquier liga.'],['Los partidos','Cada partido son 90 minutos. Cuando hay una ocasión, eliges dónde apuntar y pulsas "¡Ahora!" en la zona verde: primero potencia y luego precisión. Si te atacan, pulsa en la zona verde para parar.'],['Táctica y cambios','Elige táctica defensiva, equilibrada u ofensiva. En el descanso y en el minuto 70 puedes cambiarla y hacer hasta 3 cambios.'],['Tu plantilla','En "Plantilla" ves tu once como en un videojuego de fútbol. Toca un jugador y luego otro para intercambiarlos. Los lesionados (🤕) y sancionados (🟥) no juegan.'],['Fichajes','Ficha jugadores de cualquier club y liga, o busca agentes libres. Los jugadores clave pueden rechazarte, y los de ligas superiores cuestan más. La cantera descubre jóvenes promesas.'],['Club y dinero','Mejora estadio, ciudad deportiva, academia, cuerpo médico y ojeadores. Cumple los objetivos de la directiva o te pueden despedir… y te llegarán ofertas de otros clubes.'],['Formaciones y tienda','En Plantilla puedes cambiar la formación (4-4-2, 4-3-3, 3-5-2...). Ganas 1 diamante (💎) por cada partido ganado y en la Tienda los cambias por dinero, botiquines para curar lesionados y retiratarjetas para levantar sanciones.'],['Historia y logros','En "Historia" ves tus temporadas, récords y más de 80 logros. En Ajustes puedes exportar tus partidas, cambiar idioma, sonido y dificultad. ¡A jugar!']],
+en:[['Welcome!','Create your club or manage an existing one. Your goal: get promoted, win trophies and reach the top in any league.'],['Matches','Each match lasts 90 minutes. When there is a chance, pick where to aim and press "Now!" in the green zone: first power, then accuracy. When defending, press in the green zone to save.'],['Tactics and subs','Choose a defensive, balanced or attacking tactic. At half-time and on minute 70 you can change it and make up to 3 substitutions.'],['Your squad','In "Squad" you see your starting eleven like a football video game. Tap a player and then another to swap them. Injured (🤕) and suspended (🟥) players cannot play.'],['Transfers','Sign players from any club or league, or look for free agents. Key players may refuse you, and players from higher leagues cost more. The academy finds young talents.'],['Club and money','Upgrade stadium, training ground, academy, medical team and scouts. Meet the board objectives or you may be sacked... and other clubs will send offers.'],['Formations and shop','In Squad you can change the formation (4-4-2, 4-3-3, 3-5-2...). You earn 1 diamond (💎) for every match you win, and in the Shop you can exchange diamonds for money, first-aid kits to heal injured players and card removers to lift suspensions.'],['History and achievements','In "History" you see your seasons, records and over 80 achievements. In Settings you can export your saves and change language, sound and difficulty. Let us play!']]};
 function tut(i){i=i||0;let d=document.getElementById('tut');if(!d){d=document.createElement('div');d.id='tut';d.style.cssText='position:fixed;inset:0;background:#000c;display:flex;align-items:center;justify-content:center;z-index:99;padding:16px';document.body.appendChild(d)}
  const L=TUT[CFG.lang]||TUT.es,x=L[i],en=CFG.lang=='en';d.innerHTML=`<div class="card" style="max-width:420px;width:100%"><h3>${x[0]}</h3><p>${x[1]}</p><div class="row"><span class="mut">${i+1}/${L.length}</span><div class="row"><button class="g" onclick="tutEnd()">${en?'Skip':'Saltar'}</button><button onclick="${i+1<L.length?'tut('+(i+1)+')':'tutEnd()'}">${i+1<L.length?(en?'Next':'Siguiente'):(en?'Play!':'¡A jugar!')}</button></div></div></div>`}
 function tutEnd(){const d=document.getElementById('tut');if(d)d.remove();try{localStorage.setItem('pcar_tut','1')}catch(e){}}
@@ -372,12 +372,6 @@ Defensiva: menos ocasiones para todos. Ofensiva: más ocasiones para ti, pero el
 Necesitas al menos 11 jugadores. => You need at least 11 players.
 Necesitas un portero. => You need a goalkeeper.
 Tienda => Shop
-MODO DEMO: las compras con dinero real no están conectadas y los paquetes son gratis para probar. => DEMO MODE: real-money purchases are not connected and packs are free for testing.
-Comprar TLTokens => Buy TLTokens
-Gratis (demo) => Free (demo)
-Tras pagar recibirás un código. Introdúcelo aquí: => After paying you will receive a code. Enter it here:
-Canjear código de compra => Redeem purchase code
-Cambiar TLTokens por dinero => Exchange TLTokens for money
 por 💎 => for 💎
 Botiquín => First-aid kit
 Retiratarjetas => Card remover
@@ -385,7 +379,6 @@ Cura al instante a un jugador lesionado. => Instantly heals an injured player.
 Levanta la sanción de un jugador sancionado. => Lifts the suspension of a suspended player.
 Tienes:  => You have: 
  ud. =>  pcs
-Pago no disponible todavía. => Payment not available yet.
 Comprado:  => Bought: 
  a tu caja =>  added to your cash
 Ese código ya se ha usado. => That code has already been used.
@@ -397,26 +390,6 @@ Usar retiratarjetas => Use card remover
 No tienes botiquines. Cómpralos en la Tienda. => You have no first-aid kits. Buy them in the Shop.
 No tienes retiratarjetas. Cómpralos en la Tienda. => You have no card removers. Buy them in the Shop.
 Curado:  => Healed: 
-No se puede conectar con la tienda ahora mismo. Tus compras y saldo se mostrarán cuando haya conexión. => Cannot connect to the shop right now. Your purchases and balance will show when you are back online.
-Pago seguro con tarjeta a través de Stripe. Los TLTokens se guardan en tu cuenta de jugador (Ajustes → Cuenta de TLTokens). => Secure card payment through Stripe. TLTokens are saved to your player account (Settings → TLTokens account).
-Los TLTokens son moneda virtual del juego, sin valor fuera de él. => TLTokens are virtual in-game currency with no value outside the game.
-Condiciones => Terms
-Abriendo el pago seguro… => Opening secure checkout…
-El pago no está disponible ahora mismo. => Payment is not available right now.
-No tienes suficientes TLTokens. => You do not have enough TLTokens.
-No se pudo conectar con la tienda. => Could not connect to the shop.
-Pago recibido. Actualizando tus TLTokens… => Payment received. Updating your TLTokens…
-💎 ¡TLTokens añadidos! => 💎 TLTokens added!
-Si has pagado y no ves los TLTokens, abre la Tienda en unos minutos. => If you have paid and do not see your TLTokens, open the Shop in a few minutes.
-Cuenta de TLTokens => TLTokens account
-Tus TLTokens están ligados a este ID. Guárdalo en un lugar seguro: quien lo tenga puede usarlos. Sirve para recuperarlos en otro dispositivo. => Your TLTokens are tied to this ID. Keep it safe: anyone who has it can use them. It lets you recover them on another device.
-Copiar ID => Copy ID
-Restaurar ID => Restore ID
-Pega aquí un ID para restaurar => Paste an ID here to restore
-ID no válido. => Invalid ID.
-ID restaurado. => ID restored.
-ID copiado. => ID copied.
-Términos, privacidad y reembolsos => Terms, privacy and refunds
 Sanción levantada:  => Suspension lifted: 
 💰 +20k € a tu caja => 💰 +20k € added to your cash
  vendido por  =>  sold for 
@@ -694,38 +667,33 @@ Lleva los ojeadores al nivel 5. => Take the scouts to level 5.
 Todas las instalaciones al nivel 5. => All facilities at level 5.
 Ten un jugador de nivel 90 o más. => Have a player rated 90 or higher.
 Ten un jugador de nivel 95 o más. => Have a player rated 95 or higher.
-Alcanza un nivel de equipo de 80. => Reach a team level of 80.`;
+Alcanza un nivel de equipo de 80. => Reach a team level of 80.
+Diamantes => Diamonds
+Ganas 1 💎 por cada partido que ganes. => You earn 1 💎 for every match you win.
+Cambiar diamantes por dinero => Exchange diamonds for money
+No tienes suficientes diamantes. => You do not have enough diamonds.
+Privacidad y aviso legal => Privacy and legal notice`;
 
 const ENL=ENX.split('\n').filter(Boolean);ENL.forEach(l=>{const i=l.indexOf(' => ');EN9[l.slice(0,i)]=l.slice(i+4)});let TK=null;
 function trs(t){for(const [r,v] of RX)t=t.replace(r,v);const ks=TK||(TK=Object.keys(EN9).sort((a,b)=>b.length-a.length));for(const k of ks)if(t.includes(k))t=t.split(k).join(EN9[k]);return t}
 function tr(){if(CFG.lang!='en')return;const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let n;while(n=w.nextNode()){if(/^(TEXTAREA|SCRIPT|STYLE)$/.test(n.parentNode.tagName))continue;const o=n.nodeValue,t=trs(o);if(t!==o)n.nodeValue=t}
  document.querySelectorAll('[placeholder]').forEach(e=>{const p=e.getAttribute('placeholder'),q=trs(p);if(q!==p)e.setAttribute('placeholder',q)})}
 
-/* ===== formaciones, tienda y TLTokens ===== */
+/* ===== formaciones y tienda de diamantes ===== */
 function setFm(k){S.fm=k;S.ov=null;SEL=null;save();squad()}
 let PF={tk:0};try{Object.assign(PF,JSON.parse(localStorage.getItem('pcar_p'))||{})}catch(e){}
 const savePF=()=>{try{localStorage.setItem('pcar_p',JSON.stringify(PF))}catch(e){}};
-const SHOP={live:true};
-const TKP=[[60,'0,99 €'],[200,'2,99 €'],[350,'4,99 €'],[750,'9,99 €'],[1600,'19,99 €']],TKX=[[10,10000],[25,28000],[50,60000],[100,130000],[250,350000]],
-ITM=[['med','🩹','Botiquín','Cura al instante a un jugador lesionado.',[[1,3],[5,12],[15,30]]],['car','🟥','Retiratarjetas','Levanta la sanción de un jugador sancionado.',[[1,3],[5,12],[15,30]]]];
+delete PF.pid;delete PF.off;delete PF.used;
+const TKX=[[3,5000],[10,20000],[25,55000],[50,120000],[100,260000]],
+ITM=[['med','🩹','Botiquín','Cura al instante a un jugador lesionado.',[[1,2],[5,8],[15,20]]],['car','🟥','Retiratarjetas','Levanta la sanción de un jugador sancionado.',[[1,2],[5,8],[15,20]]]];
 const inv=()=>(S.inv=S.inv||{med:0,car:0});
-const uuid=()=>{const a=new Uint8Array(16);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(a);else a.forEach((_,i)=>a[i]=Math.random()*256);a[6]=a[6]&15|64;a[8]=a[8]&63|128;const h=[...a].map(x=>x.toString(16).padStart(2,'0')).join('');return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20)};
-if(!PF.pid){PF.pid=uuid();savePF()}
-let CHK=0;
-async function api(p,b){try{const r=await fetch(p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});return await r.json()}catch(e){return null}}
-async function refreshTk(){if(!SHOP.live)return;const r=await api('/api/balance?pid='+PF.pid);if(r&&typeof r.balance=='number'){PF.tk=r.balance;PF.off=false;savePF()}else PF.off=true;if(S&&S.cal&&T=='tienda')tienda()}
-async function spend(c){if(!SHOP.live){if(PF.tk<c)return false;PF.tk-=c;savePF();return true}const r=await api('/api/spend',{pid:PF.pid,amount:c});if(r&&r.ok){PF.tk=r.balance;savePF();return true}if(r&&typeof r.balance=='number'){PF.tk=r.balance;savePF()}toast(r?'No tienes suficientes TLTokens.':'No se pudo conectar con la tienda.');return false}
-async function waitPay(){const b=PF.tk;for(let i=0;i<10;i++){await refreshTk();if(PF.tk>b){toast('💎 ¡TLTokens añadidos!');if(S&&S.cal)draw();return}await new Promise(r=>setTimeout(r,2500))}toast('Si has pagado y no ves los TLTokens, abre la Tienda en unos minutos.')}
-function tienda(){const live=SHOP.live;if(live&&!CHK){CHK=1;refreshTk()}
- $('#v').innerHTML=`<div class="card"><div class="row"><h3>💎 TLTokens</h3><div class="big" style="font-size:30px">${PF.tk}</div></div>${live?(PF.off?'<p class="mut" style="color:#d9a400">No se puede conectar con la tienda ahora mismo. Tus compras y saldo se mostrarán cuando haya conexión.</p>':'<p class="mut">Pago seguro con tarjeta a través de Stripe. Los TLTokens se guardan en tu cuenta de jugador (Ajustes → Cuenta de TLTokens).</p>'):'<p class="mut" style="color:#d9a400">MODO DEMO: las compras con dinero real no están conectadas y los paquetes son gratis para probar.</p>'}</div>
- <div class="card"><h3>Comprar TLTokens</h3>${TKP.map((p,i)=>`<div class="pl row"><div><b>💎 ${p[0]}</b><div class="mut">${p[1]}</div></div><button onclick="buyPack(${i})">${live?p[1]:'Gratis (demo)'}</button></div>`).join('')}<p class="mut">Los TLTokens son moneda virtual del juego, sin valor fuera de él. <a href="legal.html" target="_blank">Condiciones</a></p></div>
- <div class="card"><h3>Cambiar TLTokens por dinero</h3>${TKX.map((x,i)=>`<div class="pl row"><div><b>${K(x[1])}</b><div class="mut">por 💎 ${x[0]}</div></div><button ${PF.tk<x[0]?'disabled':''} onclick="exch(${i})">💎 ${x[0]}</button></div>`).join('')}</div>
- ${ITM.map(it=>`<div class="card"><div class="row"><h3>${it[1]} ${it[2]}</h3><span class="mut">Tienes: ${inv()[it[0]]}</span></div><p class="mut">${it[3]}</p>${it[4].map(o=>`<div class="pl row"><b>${o[0]} ud.</b><button ${PF.tk<o[1]?'disabled':''} onclick="buyIt('${it[0]}',${o[0]},${o[1]})">💎 ${o[1]}</button></div>`).join('')}</div>`).join('')}`}
-async function buyPack(i){if(!SHOP.live){PF.tk+=TKP[i][0];savePF();toast('Demo: +'+TKP[i][0]+' TLTokens');return draw()}toast('Abriendo el pago seguro…');const r=await api('/api/checkout',{pid:PF.pid,pack:i});if(r&&r.url)location.href=r.url;else toast('El pago no está disponible ahora mismo.')}
-async function exch(i){const x=TKX[i];if(await spend(x[0])){S.money+=x[1];save();toast('+'+K(x[1])+' a tu caja')}draw()}
-async function buyIt(k,n,c){if(await spend(c)){inv()[k]+=n;save();toast('Comprado: '+n+' ud.')}draw()}
-function copyId(){try{navigator.clipboard.writeText(PF.pid)}catch(e){}toast('ID copiado.')}
-function restoreId(){const v=$('#rid').value.trim();if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v))return toast('ID no válido.');PF.pid=v.toLowerCase();savePF();refreshTk();toast('ID restaurado.');ajustes()}
+function spend(c){if((PF.tk||0)<c){toast('No tienes suficientes diamantes.');return false}PF.tk-=c;savePF();return true}
+function tienda(){
+ $('#v').innerHTML=`<div class="card"><div class="row"><h3>💎 Diamantes</h3><div class="big" style="font-size:30px">${PF.tk||0}</div></div><p class="mut">Ganas 1 💎 por cada partido que ganes.</p></div>
+ <div class="card"><h3>Cambiar diamantes por dinero</h3>${TKX.map((x,i)=>`<div class="pl row"><div><b>${K(x[1])}</b><div class="mut">por 💎 ${x[0]}</div></div><button ${(PF.tk||0)<x[0]?'disabled':''} onclick="exch(${i})">💎 ${x[0]}</button></div>`).join('')}</div>
+ ${ITM.map(it=>`<div class="card"><div class="row"><h3>${it[1]} ${it[2]}</h3><span class="mut">Tienes: ${inv()[it[0]]}</span></div><p class="mut">${it[3]}</p>${it[4].map(o=>`<div class="pl row"><b>${o[0]} ud.</b><button ${(PF.tk||0)<o[1]?'disabled':''} onclick="buyIt('${it[0]}',${o[0]},${o[1]})">💎 ${o[1]}</button></div>`).join('')}</div>`).join('')}`}
+function exch(i){const x=TKX[i];if(spend(x[0])){S.money+=x[1];save();toast('+'+K(x[1])+' a tu caja')}draw()}
+function buyIt(k,n,c){if(spend(c)){inv()[k]+=n;save();toast('Comprado: '+n+' ud.')}draw()}
 function useIt(k,id){const p=S.squad.find(x=>x.id==id);if(!p)return;if(inv()[k]<=0)return toast(k=='med'?'No tienes botiquines. Cómpralos en la Tienda.':'No tienes retiratarjetas. Cómpralos en la Tienda.');inv()[k]--;if(k=='med')p.inj=0;else p.sus=0;toast((k=='med'?'Curado: ':'Sanción levantada: ')+p.name);save();squad()}
 function club(){$('#v').innerHTML=`<div class="card"><h3>${S.stad}</h3><p class="mut">Entrenador: ${S.coach} · Ingresos por temporada: ${K(inc())}</p></div>`+Object.keys(FAC).map(k=>{const f=FAC[k],l=S[k]||1;return`<div class="card"><div class="row"><h3>${f[0]}</h3><b>Nivel ${l}/5</b></div><p class="mut">${f[1]}</p><button style="width:100%" ${l>=5||S.money<l*f[2]?'disabled':''} onclick="up('${k}')">${l>=5?'Al máximo':'Mejorar ('+K(l*f[2])+')'}</button></div>`}).join('')}
 function up(k){const l=S[k]||1;S.money-=l*FAC[k][2];S[k]=l+1;save();draw()}
@@ -811,13 +779,13 @@ function res(z,a,b){const c=M.cur,k=XI(M.T.pl)[0],g=R(0,5),L=cur().k=='L',pb=c.p
 function endM(){snd('whistle');if(cur().k!='L'&&M.gm==M.go){M.me=[];M.op=[];M.turn=0;lock=false;return mview('Empate a '+M.gm+'. ¡Tanda de penaltis!')}fin(M.gm,M.go)}
 function fin(gm,go){const e=cur(),w=gm>go,d=gm==go,L=e.k=='L',EP=EUT[S.eu&&S.eu.c],yr=(2026+S.season)+'/'+(27+S.season);let g=0,x='';
  if(w)g=L?(S.cat+1)*1500:e.k=='C'?(S.cat+1)*1000+e.r*2500:EP[2][0]+e.r*EP[2][1];else if(d&&L)g=(S.cat+1)*500;
- S.money+=g;trk(w,d,M.gm,M.go);if(Math.random()<.05)mkOffer();const inj=[],xi=XI(S.squad).map(p=>p.id);S.squad.forEach(p=>{if(p.sus)p.sus--;if(p.inj)p.inj--;else if(xi.includes(p.id)&&Math.random()<.022-((S.md||1)-1)*.004){p.inj=Math.max(1,R(1,6)-((S.md||1)-1));inj.push(p.name+' ('+p.inj+')')}});S.squad.forEach(p=>{if(p.age<=25&&p.ovr<p.pot&&Math.random()<.08+((S.tr||1)-1)*.03)p.ovr++});
+ S.money+=g;trk(w,d,M.gm,M.go);if(w){PF.tk=(PF.tk||0)+1;savePF()}if(Math.random()<.05)mkOffer();const inj=[],xi=XI(S.squad).map(p=>p.id);S.squad.forEach(p=>{if(p.sus)p.sus--;if(p.inj)p.inj--;else if(xi.includes(p.id)&&Math.random()<.022-((S.md||1)-1)*.004){p.inj=Math.max(1,R(1,6)-((S.md||1)-1));inj.push(p.name+' ('+p.inj+')')}});S.squad.forEach(p=>{if(p.age<=25&&p.ovr<p.pot&&Math.random()<.08+((S.tr||1)-1)*.03)p.ovr++});
  if(L){if(!go){const k=M.g&&S.squad.find(x=>x.id==M.g.id);if(k)k.cs=(k.cs||0)+1}if(!gm){const k=M.T.pl.find(x=>x.pos=='POR');if(k)k.cs=(k.cs||0)+1}S.res.push(w?1:d?.5:0);mine().pts+=w?3:d?1:0;M.T.pts+=w?0:d?1:3;simRound(e.r)}
  else{if(w&&e.k=='C')S.cupW=(S.cupW||0)+1;if(S.br&&S.br[e.k])brStep(e.k,e.r,w,M.gm,M.go);if(M.gm==M.go)x=' (pen.)';
   if(!w){S.cal.forEach((q,i)=>{if(i>S.ci&&q.k==e.k)q.skip=true});x+=' · Eliminado de '+(e.k=='C'?'la Copa':S.eu.c)}
   else if(e.k=='C'&&e.r==4){S.titles.push(CN+' '+yr);S.cw=true;S.money+=40000;x+=' · 🏆 ¡Campeón de Copa! +40k €'}
   else if(e.k=='E'&&e.r==3){S.titles.push(S.eu.c+' '+yr);S.money+=EP[3];x+=' · 🏆 ¡'+S.eu.c+'! +'+K(EP[3])}}
- S.log=(w?'Victoria ':d?'Empate ':'Derrota ')+M.gm+'-'+M.go+' ante '+M.o.n+(g?' · +'+K(g):'')+x+(inj.length?' · 🤕 '+inj.join(', '):'');
+ S.log=(w?'Victoria ':d?'Empate ':'Derrota ')+M.gm+'-'+M.go+' ante '+M.o.n+(g?' · +'+K(g):'')+(w?' · +1 💎':'')+x+(inj.length?' · 🤕 '+inj.join(', '):'');
  S.ci++;adv();if(S.ci>=S.cal.length)return endSeason();save();M=null;T='home';draw()}
 function endSeason(){
  const old=S.cat,c=CATS[old].n,yr=(2026+S.season)+'/'+(27+S.season),out=[],rs=()=>S.div.forEach(d=>d.forEach(t=>t.pts=t.me?.25:Math.random()*.5));
@@ -852,7 +820,6 @@ function takeOver(d,i,lc){const a=S.div[S.cat],mi=a.findIndex(t=>t.me);a[mi]={n:
 applyCfg();document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');if(CFG.mus&&!MI)music()});
 new MutationObserver(()=>tr()).observe(document.body,{childList:true,subtree:true,characterData:true});
 try{if(!localStorage.getItem('pcar_tut'))setTimeout(()=>tut(),300)}catch(e){}
-{const QP=new URLSearchParams(location.search);if(SHOP.live){refreshTk();if(QP.get('paid')==='1'){history.replaceState(null,'',location.pathname);setTimeout(()=>{toast('Pago recibido. Actualizando tus TLTokens…');waitPay()},700)}}}
 setup();
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script></body></html>

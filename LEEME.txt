@@ -1,12 +1,11 @@
 TEAM LEGEND FOOTBALL (web instalable / PWA)
 
-Publicar (gratis): sube estos 6 archivos a GitHub y conectalos con Vercel (o arrastra la carpeta a Netlify Drop).
-Actualizar: sustituye index.html y sube. Si se sigue viendo la version vieja, cambia 'penaltis-v11' por 'penaltis-v12' en sw.js.
+Publicar (gratis): sube estos archivos a GitHub y conectalos con Vercel (o arrastra la carpeta a Netlify Drop).
+Actualizar: sustituye los archivos y sube. Si se sigue viendo la version vieja, cambia 'penaltis-v14' por 'penaltis-v15' en sw.js.
 
 Notas:
-- Cada persona guarda sus carreras en su navegador/dispositivo.
+- Cada persona guarda sus carreras y sus diamantes en su navegador/dispositivo. No hay servidor ni pagos.
+- Los diamantes se ganan jugando (1 por partido ganado).
 - Todos los nombres de clubes y jugadores son ficticios. En Ajustes hay un editor de nombres.
 - El script de anuncios (AdSense) va en index.html, dentro de <head>. Nunca en sw.js.
-- Para que AdSense apruebe la web hace falta dominio propio, politica de privacidad y archivo ads.txt.
-
-TIENDA / TLTokens: en index.html busca 'const SHOP={live:false...'. Con live:false los paquetes de TLTokens son GRATIS (modo demo para probar). Antes de publicar pon live:true y conecta un servicio de pago (ver SHOP.links y SHOP.codes).
+- legal.html: rellena tus datos (privacidad y aviso legal).
