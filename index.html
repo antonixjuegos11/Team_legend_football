@@ -314,7 +314,7 @@ function ajustes(from){BK=from||BK;const o=(k,a)=>`<div class="row">${a.map(x=>`
  <div class="card"><h3>Sonido</h3>${o('snd',[[1,'Efectos: sí'],[0,'Efectos: no']])}<div style="height:8px"></div>${o('mus',[[1,'Música: sí'],[0,'Música: no']])}</div>
  <div class="card"><h3>Partidas</h3><div class="row"><button style="flex:1" onclick="exp()">Exportar</button><label class="mut" style="flex:1"><input type="file" accept=".json" onchange="imp(this.files[0])"></label></div><div id="ex"></div><p class="mut">Pega aquí un texto exportado para importarlo:</p><textarea id="imt" style="width:100%;height:60px"></textarea><button class="g" style="width:100%;margin-top:6px" onclick="impT()">Importar texto</button></div>
  <div class="card"><h3>Nombres de clubes</h3><p class="mut">Todos los nombres del juego son ficticios. Puedes poner los que quieras para tus próximas carreras.</p><button class="g" style="width:100%" onclick="nombres()">Editor de nombres</button></div>
- <div class="card"><h3>Ayuda</h3><button class="g" style="width:100%" onclick="tut()">Ver tutorial</button></div>
+ <div class="card"><h3>Cuenta de TLTokens</h3><p class="mut">Tus TLTokens están ligados a este ID. Guárdalo en un lugar seguro: quien lo tenga puede usarlos. Sirve para recuperarlos en otro dispositivo.</p><input readonly value="${PF.pid}" style="font-size:12px"><button class="g" style="width:100%;margin:6px 0" onclick="copyId()">Copiar ID</button><input id="rid" placeholder="Pega aquí un ID para restaurar" style="font-size:12px"><button class="g" style="width:100%;margin-top:6px" onclick="restoreId()">Restaurar ID</button><p class="mut"><a href="legal.html" target="_blank">Términos, privacidad y reembolsos</a></p></div><div class="card"><h3>Ayuda</h3><button class="g" style="width:100%" onclick="tut()">Ver tutorial</button></div>
  <div class="card"><h3>Borrar todos los datos</h3><button class="g" style="width:100%" onclick="delAll()">${DA?'¿Seguro? Pulsa otra vez':'Borrar partidas y ajustes'}</button></div>
  <button style="width:100%" onclick="BK=='game'&&S&&S.cal?draw():setup()">Volver</button>`}
 function exp(){const t=JSON.stringify({v:2,careers:all(),cfg:CFG});try{const b=new Blob([t],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='penaltis-partidas.json';document.body.appendChild(a);a.click();a.remove()}catch(e){}
@@ -397,6 +397,26 @@ Usar retiratarjetas => Use card remover
 No tienes botiquines. Cómpralos en la Tienda. => You have no first-aid kits. Buy them in the Shop.
 No tienes retiratarjetas. Cómpralos en la Tienda. => You have no card removers. Buy them in the Shop.
 Curado:  => Healed: 
+No se puede conectar con la tienda ahora mismo. Tus compras y saldo se mostrarán cuando haya conexión. => Cannot connect to the shop right now. Your purchases and balance will show when you are back online.
+Pago seguro con tarjeta a través de Stripe. Los TLTokens se guardan en tu cuenta de jugador (Ajustes → Cuenta de TLTokens). => Secure card payment through Stripe. TLTokens are saved to your player account (Settings → TLTokens account).
+Los TLTokens son moneda virtual del juego, sin valor fuera de él. => TLTokens are virtual in-game currency with no value outside the game.
+Condiciones => Terms
+Abriendo el pago seguro… => Opening secure checkout…
+El pago no está disponible ahora mismo. => Payment is not available right now.
+No tienes suficientes TLTokens. => You do not have enough TLTokens.
+No se pudo conectar con la tienda. => Could not connect to the shop.
+Pago recibido. Actualizando tus TLTokens… => Payment received. Updating your TLTokens…
+💎 ¡TLTokens añadidos! => 💎 TLTokens added!
+Si has pagado y no ves los TLTokens, abre la Tienda en unos minutos. => If you have paid and do not see your TLTokens, open the Shop in a few minutes.
+Cuenta de TLTokens => TLTokens account
+Tus TLTokens están ligados a este ID. Guárdalo en un lugar seguro: quien lo tenga puede usarlos. Sirve para recuperarlos en otro dispositivo. => Your TLTokens are tied to this ID. Keep it safe: anyone who has it can use them. It lets you recover them on another device.
+Copiar ID => Copy ID
+Restaurar ID => Restore ID
+Pega aquí un ID para restaurar => Paste an ID here to restore
+ID no válido. => Invalid ID.
+ID restaurado. => ID restored.
+ID copiado. => ID copied.
+Términos, privacidad y reembolsos => Terms, privacy and refunds
 Sanción levantada:  => Suspension lifted: 
 💰 +20k € a tu caja => 💰 +20k € added to your cash
  vendido por  =>  sold for 
@@ -685,19 +705,27 @@ function tr(){if(CFG.lang!='en')return;const w=document.createTreeWalker(documen
 function setFm(k){S.fm=k;S.ov=null;SEL=null;save();squad()}
 let PF={tk:0};try{Object.assign(PF,JSON.parse(localStorage.getItem('pcar_p'))||{})}catch(e){}
 const savePF=()=>{try{localStorage.setItem('pcar_p',JSON.stringify(PF))}catch(e){}};
-const SHOP={live:false,links:{},codes:{}};
+const SHOP={live:true};
 const TKP=[[60,'0,99 €'],[200,'2,99 €'],[350,'4,99 €'],[750,'9,99 €'],[1600,'19,99 €']],TKX=[[10,10000],[25,28000],[50,60000],[100,130000],[250,350000]],
 ITM=[['med','🩹','Botiquín','Cura al instante a un jugador lesionado.',[[1,3],[5,12],[15,30]]],['car','🟥','Retiratarjetas','Levanta la sanción de un jugador sancionado.',[[1,3],[5,12],[15,30]]]];
 const inv=()=>(S.inv=S.inv||{med:0,car:0});
-function tienda(){const live=SHOP.live;
- $('#v').innerHTML=`<div class="card"><div class="row"><h3>💎 TLTokens</h3><div class="big" style="font-size:30px">${PF.tk}</div></div>${live?'':'<p class="mut" style="color:#d9a400">MODO DEMO: las compras con dinero real no están conectadas y los paquetes son gratis para probar.</p>'}</div>
- <div class="card"><h3>Comprar TLTokens</h3>${TKP.map((p,i)=>`<div class="pl row"><div><b>💎 ${p[0]}</b><div class="mut">${p[1]}</div></div><button onclick="buyPack(${i})">${live?p[1]:'Gratis (demo)'}</button></div>`).join('')}${live?`<p class="mut">Tras pagar recibirás un código. Introdúcelo aquí:</p><input id="tkc" maxlength="8" placeholder="CÓDIGO" style="text-transform:uppercase"><button class="g" style="width:100%;margin-top:6px" onclick="tkCode()">Canjear código de compra</button>`:''}</div>
+const uuid=()=>{const a=new Uint8Array(16);if(window.crypto&&crypto.getRandomValues)crypto.getRandomValues(a);else a.forEach((_,i)=>a[i]=Math.random()*256);a[6]=a[6]&15|64;a[8]=a[8]&63|128;const h=[...a].map(x=>x.toString(16).padStart(2,'0')).join('');return h.slice(0,8)+'-'+h.slice(8,12)+'-'+h.slice(12,16)+'-'+h.slice(16,20)+'-'+h.slice(20)};
+if(!PF.pid){PF.pid=uuid();savePF()}
+let CHK=0;
+async function api(p,b){try{const r=await fetch(p,b?{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(b)}:{});return await r.json()}catch(e){return null}}
+async function refreshTk(){if(!SHOP.live)return;const r=await api('/api/balance?pid='+PF.pid);if(r&&typeof r.balance=='number'){PF.tk=r.balance;PF.off=false;savePF()}else PF.off=true;if(S&&S.cal&&T=='tienda')tienda()}
+async function spend(c){if(!SHOP.live){if(PF.tk<c)return false;PF.tk-=c;savePF();return true}const r=await api('/api/spend',{pid:PF.pid,amount:c});if(r&&r.ok){PF.tk=r.balance;savePF();return true}if(r&&typeof r.balance=='number'){PF.tk=r.balance;savePF()}toast(r?'No tienes suficientes TLTokens.':'No se pudo conectar con la tienda.');return false}
+async function waitPay(){const b=PF.tk;for(let i=0;i<10;i++){await refreshTk();if(PF.tk>b){toast('💎 ¡TLTokens añadidos!');if(S&&S.cal)draw();return}await new Promise(r=>setTimeout(r,2500))}toast('Si has pagado y no ves los TLTokens, abre la Tienda en unos minutos.')}
+function tienda(){const live=SHOP.live;if(live&&!CHK){CHK=1;refreshTk()}
+ $('#v').innerHTML=`<div class="card"><div class="row"><h3>💎 TLTokens</h3><div class="big" style="font-size:30px">${PF.tk}</div></div>${live?(PF.off?'<p class="mut" style="color:#d9a400">No se puede conectar con la tienda ahora mismo. Tus compras y saldo se mostrarán cuando haya conexión.</p>':'<p class="mut">Pago seguro con tarjeta a través de Stripe. Los TLTokens se guardan en tu cuenta de jugador (Ajustes → Cuenta de TLTokens).</p>'):'<p class="mut" style="color:#d9a400">MODO DEMO: las compras con dinero real no están conectadas y los paquetes son gratis para probar.</p>'}</div>
+ <div class="card"><h3>Comprar TLTokens</h3>${TKP.map((p,i)=>`<div class="pl row"><div><b>💎 ${p[0]}</b><div class="mut">${p[1]}</div></div><button onclick="buyPack(${i})">${live?p[1]:'Gratis (demo)'}</button></div>`).join('')}<p class="mut">Los TLTokens son moneda virtual del juego, sin valor fuera de él. <a href="legal.html" target="_blank">Condiciones</a></p></div>
  <div class="card"><h3>Cambiar TLTokens por dinero</h3>${TKX.map((x,i)=>`<div class="pl row"><div><b>${K(x[1])}</b><div class="mut">por 💎 ${x[0]}</div></div><button ${PF.tk<x[0]?'disabled':''} onclick="exch(${i})">💎 ${x[0]}</button></div>`).join('')}</div>
  ${ITM.map(it=>`<div class="card"><div class="row"><h3>${it[1]} ${it[2]}</h3><span class="mut">Tienes: ${inv()[it[0]]}</span></div><p class="mut">${it[3]}</p>${it[4].map(o=>`<div class="pl row"><b>${o[0]} ud.</b><button ${PF.tk<o[1]?'disabled':''} onclick="buyIt('${it[0]}',${o[0]},${o[1]})">💎 ${o[1]}</button></div>`).join('')}</div>`).join('')}`}
-function buyPack(i){if(SHOP.live){const l=SHOP.links[i];return l?window.open(l,'_blank'):toast('Pago no disponible todavía.')}PF.tk+=TKP[i][0];savePF();toast('Demo: +'+TKP[i][0]+' TLTokens');draw()}
-function exch(i){const x=TKX[i];if(PF.tk<x[0])return;PF.tk-=x[0];S.money+=x[1];savePF();save();toast('+'+K(x[1])+' a tu caja');draw()}
-function buyIt(k,n,c){if(PF.tk<c)return;PF.tk-=c;inv()[k]+=n;savePF();save();toast('Comprado: '+n+' ud.');draw()}
-function tkCode(){const h=hh($('#tkc').value.trim().toUpperCase()),a=SHOP.codes[h];PF.used=PF.used||[];if(!a)return toast('Código no válido.');if(PF.used.includes(h))return toast('Ese código ya se ha usado.');PF.used.push(h);PF.tk+=a;savePF();toast('+'+a+' TLTokens');draw()}
+async function buyPack(i){if(!SHOP.live){PF.tk+=TKP[i][0];savePF();toast('Demo: +'+TKP[i][0]+' TLTokens');return draw()}toast('Abriendo el pago seguro…');const r=await api('/api/checkout',{pid:PF.pid,pack:i});if(r&&r.url)location.href=r.url;else toast('El pago no está disponible ahora mismo.')}
+async function exch(i){const x=TKX[i];if(await spend(x[0])){S.money+=x[1];save();toast('+'+K(x[1])+' a tu caja')}draw()}
+async function buyIt(k,n,c){if(await spend(c)){inv()[k]+=n;save();toast('Comprado: '+n+' ud.')}draw()}
+function copyId(){try{navigator.clipboard.writeText(PF.pid)}catch(e){}toast('ID copiado.')}
+function restoreId(){const v=$('#rid').value.trim();if(!/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(v))return toast('ID no válido.');PF.pid=v.toLowerCase();savePF();refreshTk();toast('ID restaurado.');ajustes()}
 function useIt(k,id){const p=S.squad.find(x=>x.id==id);if(!p)return;if(inv()[k]<=0)return toast(k=='med'?'No tienes botiquines. Cómpralos en la Tienda.':'No tienes retiratarjetas. Cómpralos en la Tienda.');inv()[k]--;if(k=='med')p.inj=0;else p.sus=0;toast((k=='med'?'Curado: ':'Sanción levantada: ')+p.name);save();squad()}
 function club(){$('#v').innerHTML=`<div class="card"><h3>${S.stad}</h3><p class="mut">Entrenador: ${S.coach} · Ingresos por temporada: ${K(inc())}</p></div>`+Object.keys(FAC).map(k=>{const f=FAC[k],l=S[k]||1;return`<div class="card"><div class="row"><h3>${f[0]}</h3><b>Nivel ${l}/5</b></div><p class="mut">${f[1]}</p><button style="width:100%" ${l>=5||S.money<l*f[2]?'disabled':''} onclick="up('${k}')">${l>=5?'Al máximo':'Mejorar ('+K(l*f[2])+')'}</button></div>`}).join('')}
 function up(k){const l=S[k]||1;S.money-=l*FAC[k][2];S[k]=l+1;save();draw()}
@@ -824,6 +852,7 @@ function takeOver(d,i,lc){const a=S.div[S.cat],mi=a.findIndex(t=>t.me);a[mi]={n:
 applyCfg();document.addEventListener('click',e=>{if(e.target.closest&&e.target.closest('button'))snd('click');if(CFG.mus&&!MI)music()});
 new MutationObserver(()=>tr()).observe(document.body,{childList:true,subtree:true,characterData:true});
 try{if(!localStorage.getItem('pcar_tut'))setTimeout(()=>tut(),300)}catch(e){}
+{const QP=new URLSearchParams(location.search);if(SHOP.live){refreshTk();if(QP.get('paid')==='1'){history.replaceState(null,'',location.pathname);setTimeout(()=>{toast('Pago recibido. Actualizando tus TLTokens…');waitPay()},700)}}}
 setup();
 if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
 </script></body></html>
