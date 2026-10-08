@@ -9,7 +9,15 @@
 <link rel="icon" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-192.png">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7951940300223774" crossorigin="anonymous"></script>
-<title>Team Legend Football</title>
+<title>Team Legend Football – Juego de fútbol modo carrera gratis</title>
+<meta name="description" content="Team Legend Football es un juego de fútbol gratis en tu navegador: modo carrera con 5 ligas, copas y torneos europeos, fichajes, cantera, formaciones y partidos minuto a minuto.">
+<link rel="canonical" href="https://tlfootball.vercel.app/">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Team Legend Football">
+<meta property="og:title" content="Team Legend Football – Juego de fútbol modo carrera gratis"><meta property="og:description" content="Team Legend Football es un juego de fútbol gratis en tu navegador: modo carrera con 5 ligas, copas y torneos europeos, fichajes, cantera, formaciones y partidos minuto a minuto.">
+<meta property="og:url" content="https://tlfootball.vercel.app/"><meta property="og:image" content="https://tlfootball.vercel.app/icon-512.png"><meta property="og:locale" content="es_ES">
+<meta name="twitter:card" content="summary"><meta name="twitter:title" content="Team Legend Football"><meta name="twitter:description" content="Team Legend Football es un juego de fútbol gratis en tu navegador: modo carrera con 5 ligas, copas y torneos europeos, fichajes, cantera, formaciones y partidos minuto a minuto.">
+<!-- Google Search Console: pega aquí tu etiqueta de verificación, por ejemplo <meta name="google-site-verification" content="TU_CODIGO"> -->
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "VideoGame", "name": "Team Legend Football", "alternateName": ["Team Leyend Football", "TL Football"], "url": "https://tlfootball.vercel.app/", "description": "Team Legend Football es un juego de fútbol gratis en tu navegador: modo carrera con 5 ligas, copas y torneos europeos, fichajes, cantera, formaciones y partidos minuto a minuto.", "image": "https://tlfootball.vercel.app/icon-512.png", "applicationCategory": "GameApplication", "genre": ["Sports", "Simulation"], "operatingSystem": "Web, Android, iOS", "inLanguage": ["es", "en"], "offers": {"@type": "Offer", "price": "0", "priceCurrency": "EUR"}}</script>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;800&family=Barlow:wght@400;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f3f1ea;--fg:#16221a;--card:#fff;--mut:#66705f;--ac:#1f7a3a;--ln:#d8d5c8;--tm:#c8102e;
@@ -47,7 +55,7 @@ input,select{padding:10px;border:1px solid var(--ln);border-radius:8px;backgroun
 .pitch .pc{color:#fff;text-shadow:0 1px 2px #0008}.pc b{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:50%;color:#16221a;font-family:'Barlow Condensed',sans-serif;font-size:21px;border:3px solid transparent}
 .pc.sel b{border-color:#e6b800;box-shadow:0 0 0 3px #e6b80066}.pc.inj{opacity:.6}.pc small{opacity:.8;font-size:10px}.bench{display:flex;flex-wrap:wrap;gap:10px;margin-top:6px}.bench .pc{width:64px}
 .msg{min-height:30px;text-align:center;font-weight:600;margin:12px 0}
-</style></head><body><div id="app"></div>
+</style></head><body><noscript><h1>Team Legend Football</h1><p>Team Legend Football es un juego de fútbol gratis en tu navegador: modo carrera con 5 ligas, copas y torneos europeos, fichajes, cantera, formaciones y partidos minuto a minuto. (También buscado como «Team Leyend Football».) Activa JavaScript en tu navegador para jugar.</p></noscript><div id="app"></div>
 <script>
 const $=s=>document.querySelector(s),R=(a,b)=>a+Math.floor(Math.random()*(b-a+1)),P=a=>a[R(0,a.length-1)];
 let CATS=[['Liga Regional',42],['Liga Amateur',50],['Liga Tercera',58],['Liga Plata',67],['Liga Oro',76]].map(c=>({n:c[0],l:c[1]}));
@@ -684,8 +692,8 @@ function setFm(k){S.fm=k;S.ov=null;SEL=null;save();squad()}
 let PF={tk:0};try{Object.assign(PF,JSON.parse(localStorage.getItem('pcar_p'))||{})}catch(e){}
 const savePF=()=>{try{localStorage.setItem('pcar_p',JSON.stringify(PF))}catch(e){}};
 delete PF.pid;delete PF.off;delete PF.used;
-const TKX=[[3,5000],[10,20000],[25,55000],[50,120000],[100,260000]],
-ITM=[['med','🩹','Botiquín','Cura al instante a un jugador lesionado.',[[1,2],[5,8],[15,20]]],['car','🟥','Retiratarjetas','Levanta la sanción de un jugador sancionado.',[[1,2],[5,8],[15,20]]]];
+const TKX=[[5,5000],[15,18000],[40,50000],[100,140000],[250,380000]],
+ITM=[['med','🩹','Botiquín','Cura al instante a un jugador lesionado.',[[1,5],[5,20],[15,50]]],['car','🟥','Retiratarjetas','Levanta la sanción de un jugador sancionado.',[[1,5],[5,20],[15,50]]]];
 const inv=()=>(S.inv=S.inv||{med:0,car:0});
 function spend(c){if((PF.tk||0)<c){toast('No tienes suficientes diamantes.');return false}PF.tk-=c;savePF();return true}
 function tienda(){

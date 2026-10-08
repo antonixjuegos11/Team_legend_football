@@ -1,7 +1,7 @@
 TEAM LEGEND FOOTBALL (web instalable / PWA)
 
 Publicar (gratis): sube estos archivos a GitHub y conectalos con Vercel (o arrastra la carpeta a Netlify Drop).
-Actualizar: sustituye los archivos y sube. Si se sigue viendo la version vieja, cambia 'penaltis-v14' por 'penaltis-v15' en sw.js.
+Actualizar: sustituye los archivos y sube. Si se sigue viendo la version vieja, cambia 'penaltis-v15' por 'penaltis-v16' en sw.js.
 
 Notas:
 - Cada persona guarda sus carreras y sus diamantes en su navegador/dispositivo. No hay servidor ni pagos.
